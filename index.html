@@ -41,8 +41,6 @@
         // Replace with real check (API call etc.)
         return code === "http://en.m.wikipedia.org";
       };
-
-      window.scanQRCode();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
@@ -138,6 +136,7 @@
             100 * progress + "%";
         })
           .then((unityInstance) => {
+            window.scanQRCode();
             document.querySelector("#unity-loading-bar").style.display = "none";
             document.querySelector("#unity-fullscreen-button").onclick = () => {
               unityInstance.SetFullscreen(1);
