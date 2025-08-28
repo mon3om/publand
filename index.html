@@ -115,13 +115,35 @@
           "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
         document.getElementsByTagName("head")[0].appendChild(meta);
         canvas.style.width = window.innerWidth + "px";
-        canvas.style.height = window.innerHeight * 0.8 + "px";
-        window.matchWebGLToCanvasSize = false;
+        canvas.style.height = window.innerHeight * 0.9 + "px";
+        window.matchWebGLToCanvasSize = true;
         // container.className = "unity-mobile";
         // canvas.className = "unity-mobile";
       }
 
       loadingBar.style.display = "block";
+
+      const parent = canvas.parentElement; // parent container
+
+      function updateCanvasSize() {
+        const width = parent.clientWidth;
+        const height = parent.clientHeight;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // If you want it to visually fit too:
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+
+        console.log("Canvas resized to:", width, "x", height);
+      }
+
+      // Run once and also when window resizes
+      setTimeout(() => {
+        updateCanvasSize();
+      }, 5000);
+      window.addEventListener("resize", updateCanvasSize);
 
       var script = document.createElement("script");
       script.src = loaderUrl;

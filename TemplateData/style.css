@@ -7,13 +7,13 @@ body {
 }
 #unity-container.unity-desktop {
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  transform: translate(-50%, 0%);
 }
 #unity-container.unity-mobile {
-  position: fixed;
+  /* position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100%; */
 }
 #unity-canvas {
   background: #231f20;
@@ -48,7 +48,6 @@ body {
   background: url("progress-bar-full-dark.png") no-repeat center;
 }
 #unity-footer {
-  position: relative;
   display: none;
 }
 .unity-mobile #unity-footer {
