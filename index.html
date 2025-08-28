@@ -113,13 +113,34 @@
         meta.content =
           "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
         document.getElementsByTagName("head")[0].appendChild(meta);
-        canvas.style.width = window.innerWidth * 0.95 + "px";
-        canvas.style.height = window.innerHeight * 0.95 + "px";
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight * 0.85 + "px";
         window.matchWebGLToCanvasSize = true;
       }
 
       loadingBar.style.display = "block";
 
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        })
+          .then((unityInstance) => {
+            loadingBar.style.display = "none";
+            fullscreenButton.onclick = () => {
+              unityInstance.SetFullscreen(1);
+            };
+          })
+          .catch((message) => {
+            alert(message);
+          });
+      };
+
+      document.body.appendChild(script);
+    </script>
+
+    <script>
       const parent = document.getElementById("unity-iframe"); // parent container
       const overlay = document.getElementById("debug-overlay");
 
@@ -155,25 +176,6 @@
         updateCanvasSize();
       }, 1000);
       window.addEventListener("resize", updateCanvasSize);
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        })
-          .then((unityInstance) => {
-            loadingBar.style.display = "none";
-            fullscreenButton.onclick = () => {
-              unityInstance.SetFullscreen(1);
-            };
-          })
-          .catch((message) => {
-            alert(message);
-          });
-      };
-
-      document.body.appendChild(script);
     </script>
   </body>
 </html>
